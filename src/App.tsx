@@ -83,8 +83,8 @@ function App() {
         setEdit(null)
     }
 
-    const disabledInc = count === valueInputMax;
-    // const disabledReset = count === 0;
+    const disabledInc = count === valueInputMax && count>=0;
+     const disabledReset = count === 0;
 
 
     const titleMax = 'max value:'
@@ -100,11 +100,12 @@ function App() {
             <Routes>
                 <Route path = '/*' element={<Two count={count}
                                                 btn_inc={btn_inc}
+                                                 disabledReset={disabledReset}
                                                 edit={ edit}
                                                 btn_reset={btn_reset}
                                                 setButton={setButton }
                                                 valueInputMax={valueInputMax}
-                                                disabledInc/>}/>
+                                                disabledInc={disabledInc}/>}/>
                 <Route path = '/two' element={<One titleMax={titleMax}
                                                    titleStart={titleStart}
                                                    setButton={setButton}

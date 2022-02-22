@@ -12,6 +12,7 @@ type TwoPropsType = {
     btn_reset: () => void
     setButton: () => void
     disabledInc: boolean
+    disabledReset:boolean
 }
 
 export const Two = (props: TwoPropsType) => {
@@ -22,8 +23,8 @@ export const Two = (props: TwoPropsType) => {
             </div>
             <div className="btn_wrapper">
                 <Button name='inc' callback={props.btn_inc} disabled={props.disabledInc}/>
-                <Button name='reset' callback={props.btn_reset}/>
-                <NavLink to='/two'><Button name='set' callback={props.setButton} disabled={props.disabledInc}/></NavLink>
+                <Button name='reset' callback={props.btn_reset} disabled={props.disabledReset}/>
+                <NavLink to='/two'><Button name='set' callback={props.setButton} /></NavLink>
 
             </div>
         </div>
