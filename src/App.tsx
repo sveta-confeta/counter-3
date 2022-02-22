@@ -98,7 +98,7 @@ function App() {
     return (
         <div className="app_wrapper">
             <Routes>
-                <Route path = '/one' element={<Two count={count}
+                <Route path = '/*' element={<Two count={count}
                                                 btn_inc={btn_inc}
                                                 edit={ edit}
                                                 btn_reset={btn_reset}

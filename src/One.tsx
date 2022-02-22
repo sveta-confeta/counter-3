@@ -28,7 +28,7 @@ export const One = (props:OnePropsType) => {
                        classRed={props.classRedStart}/>
             </div>
                 <div className="btn_wrapper_one">
-                    <NavLink to='/one'><Button name='set' callback={props.setButton} disabled={props.disabledInc}/></NavLink>
+                    <NavLink to='/'><Button name='set' callback={props.setButton} disabled={props.disabledInc}/></NavLink>
                 </div>
 
         </div>
