@@ -1,14 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
-import {Button} from "./Button";
-import {Display} from "./Display";
-import Input from "./Input";
 import {Routes,Route} from 'react-router-dom'
 import {One} from "./One";
 import {Two} from "./Two";
 
 function App() {
-    let [count, setCount] = useState(0);
+    let [count, setCount] = useState(0);//counterReducer
 
     let [valueInputMax, setValueInputMax] = useState(0);
     let [valueInputStart, setValueInputStart] = useState(0);
