@@ -5,7 +5,7 @@ import {One} from "./One";
 import {Two} from "./Two";
 
 function App() {
-    let [count, setCount] = useState(0);//counterReducer
+    let [count, setCount] = useState(0);//cобрали все useStates в один обьект.
 
     let [valueInputMax, setValueInputMax] = useState(0);
     let [valueInputStart, setValueInputStart] = useState(0);

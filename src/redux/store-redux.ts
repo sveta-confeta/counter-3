@@ -1,6 +1,9 @@
+import {counterReducer} from "./counterReducer";
+import {combineReducers, createStore} from "redux";
+
 const rootReducer = combineReducers({
-    tasks: TasksReducer ,
-    todolists:  TodolistReducer,
+   counter: counterReducer ,
+
 
 })
 // непосредственно создаём store
