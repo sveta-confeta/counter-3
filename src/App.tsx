@@ -1,35 +1,50 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import './App.css';
 import {Routes,Route} from 'react-router-dom'
 import {One} from "./One";
 import {Two} from "./Two";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store-redux";
+import {changeMaxValueAC, changeStartValueAC, countAC} from "./redux/counterReducer";
 
 function App() {
-    let [count, setCount] = useState(0);//cобрали все useStates в один обьект.
+    // let [count, setCount] = useState(0);//cобрали все useStates в один обьект.
+    //
+    // let [valueInputMax, setValueInputMax] = useState(0);
+    // let [valueInputStart, setValueInputStart] = useState(0);
+    //
+    // let [edit, setEdit] = useState<null | string>(null);
 
-    let [valueInputMax, setValueInputMax] = useState(0);
-    let [valueInputStart, setValueInputStart] = useState(0);
+    const startValue = useSelector<AppRootStateType, number>(state => state.counter.valueInputStart)
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.valueInputMax)
+    let count = useSelector<AppRootStateType, number>(state => state.counter.count)
 
-    let [edit, setEdit] = useState<null | string>(null);
+
+    const dispatch = useDispatch()
 
     const onChangeHandlerMax = (event: ChangeEvent<HTMLInputElement>) => {
-        let value = Number(event.currentTarget.value)
-        setValueInputMax(value);
-        if (value <= valueInputStart) {
-            setEdit('Incorrect value')
-        } else {
-            setEdit('Enter SET')
-        }
+        debugger
+        let value = Number(event.currentTarget.value )
+        // setValueInputMax(value);
+        dispatch(changeMaxValueAC(value));
+        // if (value <= startValue) {
+        //     // setEdit('Incorrect value')
+        //     dispatch(errorAC('Incorrect value'));
+        // } else {
+        //     dispatch(errorAC('Enter SET'));
+        // }
 
     }
     const onChangeHandlerStart = (event: ChangeEvent<HTMLInputElement>) => {
+        debugger
         let value = Number(event.currentTarget.value)
-        setValueInputStart(value);
-        if (value < 0 || value >= valueInputMax) {
-            setEdit('Incorrect value')
-        } else {
-            setEdit('Enter SET')
-        }
+        // setValueInputStart(value);
+        dispatch(changeStartValueAC(value));
+        // if (value < 0 || value >= maxValue) {
+        //     dispatch(errorAC('Incorrect value'))
+        // } else {
+        //     dispatch(errorAC('Enter SET'))
+        // }
 
     }
 
@@ -38,12 +53,12 @@ function App() {
         let valueString = localStorage.getItem('valueMax');
         if (valueString) {
             let newValueMax = JSON.parse(valueString);
-            setValueInputMax(newValueMax)
+            dispatch(changeMaxValueAC(newValueMax))
         }
     }, []);
     useEffect(() => {
-        localStorage.setItem('valueMax', JSON.stringify(valueInputMax))
-    }, [valueInputMax]);
+        localStorage.setItem('valueMax', JSON.stringify(maxValue))
+    }, [maxValue]);
 
     //---useEffect--valueInputStart-///
 
@@ -51,36 +66,36 @@ function App() {
         let valueString = localStorage.getItem('valueMin');
         if (valueString) {
             let newValueMin = JSON.parse(valueString);
-            setValueInputStart(newValueMin)
+            dispatch(changeStartValueAC(newValueMin))
         }
     }, []);
     useEffect(() => {
-        localStorage.setItem('valueMin', JSON.stringify(valueInputStart))
-    }, [valueInputStart]);
+        localStorage.setItem('valueMin', JSON.stringify(startValue))
+    }, [startValue]);
 
     //---count---///
     useEffect(() => {
         let valueString = localStorage.getItem('count');
         if (valueString) {
             let newCount = JSON.parse(valueString);
-            setCount(newCount)
+            dispatch(countAC(newCount))
         }
     }, []);
     useEffect(() => {
         localStorage.setItem('count', JSON.stringify(count))
-    }, [valueInputStart]);
+    }, [startValue]);
 
     //------///
 
 
-    let btn_inc = () => count < valueInputMax ? setCount(count + 1) : count;
-    let btn_reset = () => count > valueInputStart ? setCount(count = valueInputStart) : count;
+    let btn_inc = () => count < maxValue ? dispatch(countAC(count + 1)) : count;
+    let btn_reset = () => count > startValue ? dispatch(countAC(count = startValue)) : count;
     let setButton = () => {
-        setCount(valueInputStart);
-        setEdit(null)
+        dispatch(countAC(startValue));
+
     }
 
-    const disabledInc = count === valueInputMax && count>=0;
+    const disabledInc = count === maxValue && count>=0;
      const disabledReset = count === 0;
 
 
@@ -88,27 +103,24 @@ function App() {
     const titleStart = 'start value:'
 
 
-    const classRedMax = valueInputMax <= valueInputStart ? 'red' : ' ';
-    const classRedStart = valueInputStart < 0 || valueInputStart >= valueInputMax ? 'red' : ' ';
+    const classRedMax = maxValue <= startValue ? 'red' : ' ';
+    const classRedStart = startValue < 0 || startValue >= maxValue ? 'red' : ' ';
 
 
     return (
         <div className="app_wrapper">
             <Routes>
-                <Route path = '/*' element={<Two count={count}
+                <Route path = '/*' element={<Two
                                                 btn_inc={btn_inc}
                                                  disabledReset={disabledReset}
-                                                edit={ edit}
                                                 btn_reset={btn_reset}
                                                 setButton={setButton }
-                                                valueInputMax={valueInputMax}
                                                 disabledInc={disabledInc}/>}/>
                 <Route path = '/two' element={<One titleMax={titleMax}
                                                    titleStart={titleStart}
                                                    setButton={setButton}
                                                    disabledInc={disabledInc}
-                                                   valueInputMax={valueInputMax}
-                                                   valueInputStart={valueInputStart}
+
                                                    onChangeHandlerStart={onChangeHandlerStart}
                                                    classRedMax={classRedMax}
                                                    onChangeHandlerMax={onChangeHandlerMax}

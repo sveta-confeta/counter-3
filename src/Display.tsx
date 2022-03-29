@@ -1,20 +1,24 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './Display.module.css'
+import { useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store-redux";
 
 type DisplayPropsType={
-    count:number
-    valueInputMax:number
-    edit:string | null
 
 }
 
 export const Display=(props:DisplayPropsType)=>{
-   let result=props.edit==='Incorrect value'? s.errorMessage :  s.good
-    let resultColor=props.count ===props.valueInputMax ? s.red_count : s.count_wrapper
+    let count = useSelector<AppRootStateType, number>(state => state.counter.count)
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.valueInputMax)
+
+
+
+
+    let resultColor=count ===maxValue ? s.red_count : s.count_wrapper
     return(
         <div className={s.displayWrapper}>
-            {props.edit ?
-                      <div className={result}>{props.edit}</div>  : <div className={resultColor}> {props.count}</div>}
+
+                       <div className={resultColor}> {count}</div>
         </div>
 
 

@@ -3,12 +3,12 @@ import {Display} from "./Display";
 import {Button} from "./Button";
 import {NavLink} from "react-router-dom";
 import './App.css'
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store-redux";
 
 type TwoPropsType = {
-    count: number
-    valueInputMax: number
+
     btn_inc: () => void
-    edit: string | null
     btn_reset: () => void
     setButton: () => void
     disabledInc: boolean
@@ -16,10 +16,13 @@ type TwoPropsType = {
 }
 
 export const Two = (props: TwoPropsType) => {
+
+
+
     return (
         <div className="App two">
             <div className="display_wrapper">
-                <Display count={props.count} valueInputMax={props.valueInputMax} edit={props.edit}/>
+                <Display/>
             </div>
             <div className="btn_wrapper">
                 <Button name='inc' callback={props.btn_inc} disabled={props.disabledInc}/>
