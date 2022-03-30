@@ -1,14 +1,17 @@
-const initialState = {count: 0, valueInputMax: 0, valueInputStart: 0};
 
 
-type ActionType = incACType | changeStartValueACType | changeMaxValueACType;
+const initialState = {
+    count: 0,
+    valueInputMax: 0,
+    valueInputStart: 0
+};
+
+
+type ActionType = IncACType | changeStartValueACType | changeMaxValueACType;
 type initialStateType = typeof initialState;
-type  incACType = ReturnType<typeof countAC>
+type IncACType = ReturnType<typeof countAC>
 type changeStartValueACType = ReturnType<typeof changeStartValueAC>
-type changeMaxValueACType=ReturnType<typeof changeMaxValueAC>
-
-
-
+type changeMaxValueACType = ReturnType<typeof changeMaxValueAC>
 
 
 export const counterReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
@@ -28,7 +31,7 @@ export const counterReducer = (state: initialStateType = initialState, action: A
             return state;
     }
 }
-export const countAC = (value:number) => {
+export const countAC = (value: number) => {
     return {
         type: 'INC',
         value
@@ -41,11 +44,11 @@ export const changeStartValueAC = (value: number) => {
     } as const
 }
 
-export const changeMaxValueAC=(value:number)=>{
-    return{
-     type:   'CHANGE-MAX-VALUE',
+export const changeMaxValueAC = (value: number) => {
+    return {
+        type: 'CHANGE-MAX-VALUE',
         value,
-    }as const
+    } as const
 }
 
 

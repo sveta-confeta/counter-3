@@ -27,10 +27,18 @@ export const One = (props:OnePropsType) => {
     return (
         <div className="App one">
             <div className="display_wrapper">
-                <Input title={props.titleMax} onChange={props.onChangeHandlerMax} value={maxValue}
-                       classRed={props.classRedMax}/>
-                <Input title={props.titleStart} onChange={props.onChangeHandlerStart} value={startValue}
-                       classRed={props.classRedStart}/>
+                <Input
+                    title={props.titleMax}
+                    onChange={props.onChangeHandlerMax}
+                    value={maxValue}
+                    classRed={props.classRedMax}
+                />
+                <Input
+                    title={props.titleStart}
+                    onChange={props.onChangeHandlerStart}
+                    value={startValue}
+                    classRed={props.classRedStart}
+                />
             </div>
                 <div className="btn_wrapper_one">
                     <NavLink to='/'><Button name='set' callback={props.setButton} disabled={props.disabledInc}/></NavLink>

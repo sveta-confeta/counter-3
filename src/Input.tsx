@@ -12,7 +12,8 @@ const Input = (props:InputPropsType) => {
     return (
         <>
             <div className="max">
-                {props.title} <input className={props.classRed}
+                {props.title}
+                <input className={props.classRed}
                               type='number' onChange={props.onChange}   value={props.value}/></div>
         </>
     );

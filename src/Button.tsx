@@ -12,7 +12,7 @@ export const Button=(props:ButtonPropsType)=>{
         props.callback()}
 
     return(
-        <button className={`${s.btn} ${props.disabled===true? s.disabled:'' }`}onClick={buttonHandler}>
+        <button className={`${s.btn} ${props.disabled===true? s.disabled:'' }`} onClick={buttonHandler}>
             {props.name}
         </button>
 

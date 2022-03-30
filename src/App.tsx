@@ -27,12 +27,6 @@ function App() {
         let value = Number(event.currentTarget.value )
         // setValueInputMax(value);
         dispatch(changeMaxValueAC(value));
-        // if (value <= startValue) {
-        //     // setEdit('Incorrect value')
-        //     dispatch(errorAC('Incorrect value'));
-        // } else {
-        //     dispatch(errorAC('Enter SET'));
-        // }
 
     }
     const onChangeHandlerStart = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,82 +34,85 @@ function App() {
         let value = Number(event.currentTarget.value)
         // setValueInputStart(value);
         dispatch(changeStartValueAC(value));
-        // if (value < 0 || value >= maxValue) {
-        //     dispatch(errorAC('Incorrect value'))
-        // } else {
-        //     dispatch(errorAC('Enter SET'))
-        // }
 
     }
 
     // ---useEffect--valueInputMax-///
-    useEffect(() => {
-        let valueString = localStorage.getItem('valueMax');
-        if (valueString) {
-            let newValueMax = JSON.parse(valueString);
-            dispatch(changeMaxValueAC(newValueMax))
-        }
-    }, []);
-    useEffect(() => {
-        localStorage.setItem('valueMax', JSON.stringify(maxValue))
-    }, [maxValue]);
+    // useEffect(() => {
+    //     let valueString = localStorage.getItem('valueMax');
+    //     if (valueString) {
+    //         let newValueMax = JSON.parse(valueString);
+    //         dispatch(changeMaxValueAC(newValueMax))
+    //     }
+    // }, []);
+    // useEffect(() => {
+    //     localStorage.setItem('valueMax', JSON.stringify(maxValue))
+    // }, [maxValue]);
 
     //---useEffect--valueInputStart-///
 
-    useEffect(() => {
-        let valueString = localStorage.getItem('valueMin');
-        if (valueString) {
-            let newValueMin = JSON.parse(valueString);
-            dispatch(changeStartValueAC(newValueMin))
-        }
-    }, []);
-    useEffect(() => {
-        localStorage.setItem('valueMin', JSON.stringify(startValue))
-    }, [startValue]);
-
-    //---count---///
-    useEffect(() => {
-        let valueString = localStorage.getItem('count');
-        if (valueString) {
-            let newCount = JSON.parse(valueString);
-            dispatch(countAC(newCount))
-        }
-    }, []);
-    useEffect(() => {
-        localStorage.setItem('count', JSON.stringify(count))
-    }, [startValue]);
+    // useEffect(() => {
+    //     let valueString = localStorage.getItem('valueMin');
+    //     if (valueString) {
+    //         let newValueMin = JSON.parse(valueString);
+    //         dispatch(changeStartValueAC(newValueMin))
+    //     }
+    // }, []);
+    // useEffect(() => {
+    //     localStorage.setItem('valueMin', JSON.stringify(startValue))
+    // }, [startValue]);
+    //
+    // //---count---///
+    // useEffect(() => {
+    //     let valueString = localStorage.getItem('count');
+    //     if (valueString) {
+    //         let newCount = JSON.parse(valueString);
+    //         dispatch(countAC(newCount))
+    //     }
+    // }, []);
+    // useEffect(() => {
+    //     localStorage.setItem('count', JSON.stringify(count))
+    // }, [startValue]);
 
     //------///
 
 
-    let btn_inc = () => count < maxValue ? dispatch(countAC(count + 1)) : count;
-    let btn_reset = () => count > startValue ? dispatch(countAC(count = startValue)) : count;
-    let setButton = () => {
-        dispatch(countAC(startValue));
+    const btn_inc = () => {
+       if (count < maxValue)  dispatch(countAC(count + 1))
+     }
 
+    const btn_reset = () => {
+        if (count > startValue) dispatch(countAC(count = startValue))
     }
 
-    const disabledInc = count === maxValue && count>=0;
-     const disabledReset = count === 0;
+    const setButton = () => {
+        dispatch(countAC(startValue));
+    }
 
+    const disabledInc = (count === maxValue) && (count >= 0);
+    const disabledReset = count === 0;
 
     const titleMax = 'max value:'
     const titleStart = 'start value:'
 
-
-    const classRedMax = maxValue <= startValue ? 'red' : ' ';
-    const classRedStart = startValue < 0 || startValue >= maxValue ? 'red' : ' ';
+    const classRedMax = (maxValue <= startValue) ? 'red' : ' ';
+    const classRedStart = ( (startValue < 0) || (startValue >= maxValue) ) ? 'red' : ' ';
 
 
     return (
         <div className="app_wrapper">
             <Routes>
-                <Route path = '/*' element={<Two
-                                                btn_inc={btn_inc}
-                                                 disabledReset={disabledReset}
-                                                btn_reset={btn_reset}
-                                                setButton={setButton }
-                                                disabledInc={disabledInc}/>}/>
+                <Route
+                    path = '/*'
+                    element={
+                        <Two
+                            btn_inc={btn_inc}
+                            disabledReset={disabledReset}
+                            btn_reset={btn_reset}
+                            setButton={setButton }
+                            disabledInc={disabledInc}
+                    />}
+                />
                 <Route path = '/two' element={<One titleMax={titleMax}
                                                    titleStart={titleStart}
                                                    setButton={setButton}

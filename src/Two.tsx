@@ -3,11 +3,9 @@ import {Display} from "./Display";
 import {Button} from "./Button";
 import {NavLink} from "react-router-dom";
 import './App.css'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./redux/store-redux";
+
 
 type TwoPropsType = {
-
     btn_inc: () => void
     btn_reset: () => void
     setButton: () => void
